@@ -26,7 +26,7 @@ public class GestioneClienti implements Runnable {
         try (
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
 
-            out.println("Sei connesso all'Oracolo. Personalità iniziale: " + oracolo.getPersonalitaAttuale());
+            out.println("Sei connesso all'Oracolo. Personalita' iniziale: " + oracolo.getPersonalitaAttuale());
 
             String messaggioClient;
             // Legge i messaggi finché la connessione rimane aperta
@@ -58,11 +58,11 @@ public class GestioneClienti implements Runnable {
         String comando = messaggioDiviso[0];
         
         if(messaggioDiviso.length < 2 && !comando.equalsIgnoreCase("HELP")){
-            return "Inserisci un _ dopo il comando, poi inserisci i parametri";
+            return "Inserisci un _ dopo un comando, poi inserisci i parametri";
         }
         //controllo protocollo
         if (comando.equalsIgnoreCase("HELP")) {
-            return "Comandi: PERSONA_[nome personalita'] serve a cambiare personalita' dell'oracolo, DOMANDA_[testo domada] serve a fare una domanda all'oracolo, HELP serve a mostrare i comandi";
+            return "I comandi sono PERSONA_[nome personalita'] serve a cambiare personalita' dell'oracolo, DOMANDA_[testo domada] serve a fare una domanda all'oracolo, HELP serve a mostrare i comandi";
         } else if (comando.equalsIgnoreCase("PERSONA")) {
             if (!oracolo.setPersonalitaAttuale(messaggioDiviso[1])) {
                 return "Inserisci una personalita' esistente: Aisa, Buso, SAGGIO";

@@ -51,6 +51,15 @@ public class Oracolo {
     }
 
     /**
+     * Metodo get
+     * @return personalita attuale dell'oracolo
+     */
+    public String getPersonalitaAttuale() {
+        return personalitaAttuale;
+    }
+
+    
+    /**
      * Metodo set
      * @param personalita nuova personalita
      * @return true se la personalita e' stata cambiata, false altrimenti

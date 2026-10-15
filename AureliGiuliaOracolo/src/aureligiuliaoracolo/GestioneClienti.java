@@ -24,9 +24,8 @@ public class GestioneClienti implements Runnable {
     @Override
     public void run() {
         try (
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
-            
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
+
             out.println("Sei connesso all'Oracolo. Personalità iniziale: " + oracolo.getPersonalitaAttuale());
 
             String messaggioClient;
@@ -38,8 +37,8 @@ public class GestioneClienti implements Runnable {
             }
         } catch (IOException e) {
             System.out.println("Client disconnesso.");
-        } 
-            chiudiSocket();
+        }
+        chiudiSocket();
     }
 
     /**
@@ -53,37 +52,44 @@ public class GestioneClienti implements Runnable {
         if (messaggio == null || messaggio.isEmpty()) {
             return "Il Comando e' vuoto.";
         }
-        //controllo per vedere se il protocollo e' help
-        if (messaggio.equalsIgnoreCase("HELP")) {
-            return "Comandi: \n - PERSONA_[nome personalita'] serve a cambiare personalita' dell'oracolo \n - DOMANDA_[testo domada] serve a fare una domanda all'oracolo \n - HELP serve a mostrare i comandi";
-        }
+
         //divisione del messaggio in messaggio e parametro
-        String[] messaggioDiviso = messaggio.split("_");
+        String[] messaggioDiviso = messaggio.split("_", 2);
         String comando = messaggioDiviso[0];
+        
+        if(messaggioDiviso.length < 2 && !comando.equalsIgnoreCase("HELP")){
+            return "Inserisci un _ dopo il comando, poi inserisci i parametri";
+        }
         //controllo protocollo
-        if (comando.equalsIgnoreCase("PERSONA")) {
+        if (comando.equalsIgnoreCase("HELP")) {
+            return "Comandi: PERSONA_[nome personalita'] serve a cambiare personalita' dell'oracolo, DOMANDA_[testo domada] serve a fare una domanda all'oracolo, HELP serve a mostrare i comandi";
+        } else if (comando.equalsIgnoreCase("PERSONA")) {
             if (!oracolo.setPersonalitaAttuale(messaggioDiviso[1])) {
-                return "Inserisci una personalita' esistente: \n - Aisa \n - Buso \n - SAGGIO";
+                return "Inserisci una personalita' esistente: Aisa, Buso, SAGGIO";
             } else {
                 return "Personalita' cambiata correttamente";
             }
         } else if (comando.equalsIgnoreCase("DOMANDA")) {
+            if (messaggioDiviso[1].isBlank()) {
+                return "Inserisci una domanda dopo il comando";
+            }
             return oracolo.rispondi();
+        } else {
+            return "Inserisci un comando corretto";
         }
-        return "Inserisci un comando esistente. Comandi: \n - PERSONA_[nome personalita'] serve a cambiare personalita' dell'oracolo \n - DOMANDA_[testo domada] serve a fare una domanda all'oracolo \n - HELP serve a mostrare i comandi";
     }
-    
+
     /**
      * Metodo per chiudere la socket
      */
-    public void chiudiSocket(){
+    public void chiudiSocket() {
         try {
-                if (socket != null && !socket.isClosed()) {
-                    socket.close();
-                }
-            } catch (IOException e) {
-                System.err.println("Errore durante la chiusura del socket: " + e.getMessage());
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
             }
+        } catch (IOException e) {
+            System.err.println("Errore durante la chiusura del socket: " + e.getMessage());
+        }
     }
 
 }

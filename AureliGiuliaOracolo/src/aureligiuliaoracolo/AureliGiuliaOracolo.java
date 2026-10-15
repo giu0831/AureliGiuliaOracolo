@@ -19,6 +19,7 @@ public class AureliGiuliaOracolo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //inizializzazione variabili
         ServerSocket sSocket;
         Socket client;
         final int porta = 12345; 
@@ -31,6 +32,8 @@ public class AureliGiuliaOracolo {
             while (true) {
                 client = sSocket.accept();
                 System.out.println("Connessione stabilita con " + client.getInetAddress().toString());
+                Thread oracolo = new Thread(new GestioneClienti(client));
+                oracolo.start();
             }
         } catch (IOException e) {
             System.err.println(e);

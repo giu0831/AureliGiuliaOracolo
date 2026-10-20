@@ -64,6 +64,7 @@ public class FrmOracolo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Oracolo");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -76,6 +77,7 @@ public class FrmOracolo extends javax.swing.JFrame {
         lblMessaggio.setLabelFor(lblMessaggio);
         lblMessaggio.setText("Inserisci un messaggio:");
 
+        txaChat.setEditable(false);
         txaChat.setColumns(20);
         txaChat.setRows(5);
         jScrollPane1.setViewportView(txaChat);

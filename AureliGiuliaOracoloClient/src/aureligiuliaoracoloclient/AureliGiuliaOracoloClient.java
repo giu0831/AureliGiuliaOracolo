@@ -18,32 +18,15 @@ public class AureliGiuliaOracoloClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            //inizializzazione variabili
-            int porta = 12345;
-            String host = "localhost";
-            Socket socket = new Socket(host, porta);
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            Scanner tastiera = new Scanner(System.in);
-            //lettura primo messaggio
-            String rispostaServer = in.readLine();
-            System.out.println("Oracolo: " + rispostaServer);
-            //ciclo per continuare la chat con l'oracolo
-            while (true) {
-                //input dati
-                System.out.print("Inserisci comando: ");
-                String comando = tastiera.nextLine();
-                // Invia il messaggio al server
-                out.println(comando);
-                // Lettura della risposta del server
-                rispostaServer = in.readLine();
-                System.out.println("Oracolo: " + rispostaServer);
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new FrmOracolo().setVisible(true);
+            } catch (IOException ex) {
+                System.getLogger(FrmOracolo.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
+        });
 
-        } catch (IOException e) {
-            System.err.println("Impossibile connettersi al server: " + e.getMessage());
-        }
     }
-
 }

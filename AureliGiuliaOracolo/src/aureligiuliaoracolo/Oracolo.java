@@ -35,7 +35,7 @@ public class Oracolo {
         risposteTassi.add("Ti consiglio una pausa caffe'");
         risposteTassi.add("Nel tuo futuro vedo un premio. Il premio come pdm");
         risposteTassi.add("Se devi progammare, non usare c#");
-        risposte.put("TASSI", risposteTassi);
+        risposte.put("Tassi", risposteTassi);
 
         ArrayList<String> risposteBuso = new ArrayList<>();
         risposteBuso.add("La risposta e' sempre Eldego");

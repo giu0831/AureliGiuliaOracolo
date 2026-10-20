@@ -4,19 +4,43 @@
  */
 package aureligiuliaoracoloclient;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import static java.lang.System.out;
+import java.net.Socket;
+import java.util.Scanner;
+
 /**
  *
  * @author aureli.giulia
  */
 public class FrmOracolo extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmOracolo.class.getName());
+    //inizializzazione variabili
+    private final int porta = 12345;
+    private final String host = "localhost";
+    private Socket socket;
+    private BufferedReader in;
+    private PrintWriter out;
+    private Scanner tastiera;
 
     /**
      * Creates new form FrmOracolo
+     *
+     * @throws java.io.IOException
      */
-    public FrmOracolo() {
+    public FrmOracolo() throws IOException {
         initComponents();
+        //inizializzazione variabili
+        this.socket = new Socket(host, porta);
+        this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.out = new PrintWriter(socket.getOutputStream(), true);
+        this.tastiera = new Scanner(System.in);
+
+        leggiMessaggio();
     }
 
     /**
@@ -34,29 +58,33 @@ public class FrmOracolo extends javax.swing.JFrame {
         txtMessaggio = new javax.swing.JTextField();
         lblMessaggio = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txaChat = new javax.swing.JTextArea();
         btnInvia = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Oracolo");
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
         lblOracolo.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         lblOracolo.setText("Oracolo");
 
-        cmbPersonalita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPersonalita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aisa", "Tassi", "Buso", " " }));
+        cmbPersonalita.addActionListener(this::cmbPersonalitaActionPerformed);
 
         lblMessaggio.setLabelFor(lblMessaggio);
-        lblMessaggio.setText("Inserisci un messaggio");
+        lblMessaggio.setText("Inserisci un messaggio:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txaChat.setColumns(20);
+        txaChat.setRows(5);
+        jScrollPane1.setViewportView(txaChat);
 
         btnInvia.setText("Invia");
+        btnInvia.addActionListener(this::btnInviaActionPerformed);
 
         jButton1.setText("comandi");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,27 +92,26 @@ public class FrmOracolo extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblMessaggio)
-                        .addComponent(cmbPersonalita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnInvia, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                        .addComponent(txtMessaggio))
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(204, 204, 204)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblMessaggio)
+                    .addComponent(cmbPersonalita, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(txtMessaggio)
+                    .addComponent(btnInvia, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblOracolo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(275, 275, 275))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(20, 20, 20)
                 .addComponent(lblOracolo)
-                .addGap(39, 39, 39)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cmbPersonalita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -114,6 +141,56 @@ public class FrmOracolo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // Invia il messaggio al server
+            out.println("HELP");
+            leggiMessaggio();
+        } catch (IOException ioe) {
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cmbPersonalitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPersonalitaActionPerformed
+        try {
+            String comando = "PERSONA_" + cmbPersonalita.getSelectedItem();
+            // Invia il messaggio al server
+            out.println(comando);
+            leggiMessaggio();
+        } catch (IOException ioe) {
+        }
+    }//GEN-LAST:event_cmbPersonalitaActionPerformed
+
+    private void btnInviaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInviaActionPerformed
+        try {
+            String comando = "DOMANDA_" + txtMessaggio.getText();
+            //aggiunge il messaggio alla chat
+            scriviMessaggio("client: " + txtMessaggio.getText());
+            // Invia il messaggio al server
+            out.println(comando);
+            leggiMessaggio();
+        } catch (IOException ioe) {
+        }
+    }//GEN-LAST:event_btnInviaActionPerformed
+
+    /**
+     * Metodo per leggere il messaggio inviato dal server
+     */
+    private void leggiMessaggio() throws IOException {
+        //lettura primo messaggio
+        String rispostaServer = in.readLine();
+        txaChat.append(cmbPersonalita.getSelectedItem() + ": " + rispostaServer + "\n");
+    }
+
+    /**
+     * Metodo per aggiungere un messaggio alla chat
+     *
+     * @param messaggio
+     */
+    private void scriviMessaggio(String messaggio) {
+        txtMessaggio.setText("");
+        txaChat.append(messaggio + "\n");
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -136,7 +213,13 @@ public class FrmOracolo extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FrmOracolo().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new FrmOracolo().setVisible(true);
+            } catch (IOException ex) {
+                System.getLogger(FrmOracolo.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -145,9 +228,9 @@ public class FrmOracolo extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblMessaggio;
     private javax.swing.JLabel lblOracolo;
+    private javax.swing.JTextArea txaChat;
     private javax.swing.JTextField txtMessaggio;
     // End of variables declaration//GEN-END:variables
 }

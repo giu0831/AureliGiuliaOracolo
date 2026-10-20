@@ -65,7 +65,7 @@ public class GestioneClienti implements Runnable {
             return "I comandi sono PERSONA_[nome personalita'] serve a cambiare personalita' dell'oracolo, DOMANDA_[testo domada] serve a fare una domanda all'oracolo, HELP serve a mostrare i comandi";
         } else if (comando.equalsIgnoreCase("PERSONA")) {
             if (!oracolo.setPersonalitaAttuale(messaggioDiviso[1])) {
-                return "Inserisci una personalita' esistente: Aisa, Buso, SAGGIO";
+                return "Inserisci una personalita' esistente: Aisa, Buso, Tassi";
             } else {
                 return "Personalita' cambiata correttamente";
             }

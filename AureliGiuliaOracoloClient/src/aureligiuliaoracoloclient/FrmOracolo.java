@@ -4,6 +4,7 @@
  */
 package aureligiuliaoracoloclient;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +12,7 @@ import java.io.PrintWriter;
 import static java.lang.System.out;
 import java.net.Socket;
 import java.util.Scanner;
+import javax.swing.*;
 
 /**
  *
@@ -41,6 +43,7 @@ public class FrmOracolo extends javax.swing.JFrame {
         this.tastiera = new Scanner(System.in);
 
         leggiMessaggio();
+        mostraImmagine("Aisa");
     }
 
     /**
@@ -60,7 +63,12 @@ public class FrmOracolo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txaChat = new javax.swing.JTextArea();
         btnInvia = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnComandi = new javax.swing.JButton();
+        lblPersonalita = new javax.swing.JLabel();
+        lblImmagine = new javax.swing.JLabel();
+        lblChat = new javax.swing.JLabel();
+        btnFortuna = new javax.swing.JButton();
+        btnAzzeraChat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Oracolo");
@@ -68,7 +76,7 @@ public class FrmOracolo extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
-        lblOracolo.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        lblOracolo.setFont(new java.awt.Font("Baskerville Old Face", 3, 24)); // NOI18N
         lblOracolo.setText("Oracolo");
 
         cmbPersonalita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aisa", "Tassi", "Buso", " " }));
@@ -82,38 +90,79 @@ public class FrmOracolo extends javax.swing.JFrame {
         txaChat.setRows(5);
         jScrollPane1.setViewportView(txaChat);
 
+        btnInvia.setBackground(new java.awt.Color(205, 229, 254));
         btnInvia.setText("Invia");
+        btnInvia.setBorderPainted(false);
         btnInvia.addActionListener(this::btnInviaActionPerformed);
 
-        jButton1.setText("comandi");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnComandi.setBackground(new java.awt.Color(205, 229, 254));
+        btnComandi.setText("comandi");
+        btnComandi.setBorderPainted(false);
+        btnComandi.addActionListener(this::btnComandiActionPerformed);
+
+        lblPersonalita.setText("Personalità:");
+
+        lblImmagine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImmagine.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Tassi.png"))); // NOI18N
+        lblImmagine.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        lblChat.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        lblChat.setText("Chat");
+
+        btnFortuna.setBackground(new java.awt.Color(205, 229, 254));
+        btnFortuna.setText("Chiedi la Fortuna");
+        btnFortuna.setBorderPainted(false);
+        btnFortuna.addActionListener(this::btnFortunaActionPerformed);
+
+        btnAzzeraChat.setBackground(new java.awt.Color(205, 229, 254));
+        btnAzzeraChat.setText("Azzera chat");
+        btnAzzeraChat.setBorderPainted(false);
+        btnAzzeraChat.addActionListener(this::btnAzzeraChatActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblMessaggio)
-                    .addComponent(cmbPersonalita, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(txtMessaggio)
-                    .addComponent(btnInvia, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblOracolo)
-                .addGap(275, 275, 275))
+                .addComponent(lblOracolo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(385, 385, 385))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblMessaggio)
+                        .addComponent(cmbPersonalita, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(btnComandi)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                            .addComponent(btnFortuna))
+                        .addComponent(txtMessaggio)
+                        .addComponent(btnInvia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblPersonalita))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblChat, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAzzeraChat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblImmagine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(24, 24, 24)
                 .addComponent(lblOracolo)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblPersonalita)
+                    .addComponent(lblChat))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cmbPersonalita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,9 +173,14 @@ public class FrmOracolo extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnInvia)
                         .addGap(42, 42, 42)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnComandi)
+                            .addComponent(btnFortuna)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblImmagine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAzzeraChat)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,18 +197,20 @@ public class FrmOracolo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnComandiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComandiActionPerformed
         try {
             // Invia il messaggio al server
             out.println("HELP");
             leggiMessaggio();
         } catch (IOException ioe) {
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnComandiActionPerformed
 
     private void cmbPersonalitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPersonalitaActionPerformed
         try {
-            String comando = "PERSONA_" + cmbPersonalita.getSelectedItem();
+            String personalita = cmbPersonalita.getSelectedItem().toString();
+            String comando = "PERSONA_" + personalita;
+            mostraImmagine(personalita);
             // Invia il messaggio al server
             out.println(comando);
             leggiMessaggio();
@@ -173,6 +229,22 @@ public class FrmOracolo extends javax.swing.JFrame {
         } catch (IOException ioe) {
         }
     }//GEN-LAST:event_btnInviaActionPerformed
+
+    private void btnFortunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFortunaActionPerformed
+        try {
+            String comando = "FORTUNA_" + txtMessaggio.getText();
+            //aggiunge il messaggio alla chat
+            scriviMessaggio("client: Quanta fortuna ho oggi?");
+            // Invia il messaggio al server
+            out.println(comando);
+            leggiMessaggio();
+        } catch (IOException ioe) {
+        }
+    }//GEN-LAST:event_btnFortunaActionPerformed
+
+    private void btnAzzeraChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAzzeraChatActionPerformed
+        txaChat.setText("");
+    }//GEN-LAST:event_btnAzzeraChatActionPerformed
 
     /**
      * Metodo per leggere il messaggio inviato dal server
@@ -193,6 +265,25 @@ public class FrmOracolo extends javax.swing.JFrame {
         txaChat.append(messaggio + "\n");
     }
 
+    /**
+     * Carica e ridimensiona l'immagine selezionata a 200x200 pixel
+     */
+    private void mostraImmagine(String personalita) {
+        try {
+            String percorso = "/assets/" + personalita + ".png";
+            // Carica l'immagine originale da file
+            ImageIcon iconaOriginale = new ImageIcon(getClass().getResource(percorso));
+
+            // Ridimensiona l'immagine per non sformare la finestra (es. 200x200 pixel)
+            Image imgScalata = iconaOriginale.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+
+            // Applica la nuova immagine scalata alla JLabel
+            lblImmagine.setIcon(new ImageIcon(imgScalata));
+            
+        } catch (Exception e) {
+            System.err.println("Impossibile caricare l'immagine");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -225,13 +316,18 @@ public class FrmOracolo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAzzeraChat;
+    private javax.swing.JButton btnComandi;
+    private javax.swing.JButton btnFortuna;
     private javax.swing.JButton btnInvia;
     private javax.swing.JComboBox<String> cmbPersonalita;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblChat;
+    private javax.swing.JLabel lblImmagine;
     private javax.swing.JLabel lblMessaggio;
     private javax.swing.JLabel lblOracolo;
+    private javax.swing.JLabel lblPersonalita;
     private javax.swing.JTextArea txaChat;
     private javax.swing.JTextField txtMessaggio;
     // End of variables declaration//GEN-END:variables

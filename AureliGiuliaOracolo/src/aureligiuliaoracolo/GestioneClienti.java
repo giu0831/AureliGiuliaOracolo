@@ -56,26 +56,34 @@ public class GestioneClienti implements Runnable {
         //divisione del messaggio in messaggio e parametro
         String[] messaggioDiviso = messaggio.split("_", 2);
         String comando = messaggioDiviso[0];
-        
-        if(messaggioDiviso.length < 2 && !comando.equalsIgnoreCase("HELP")){
-            return "Inserisci un _ dopo un comando, poi inserisci i parametri";
+
+        if (messaggioDiviso.length < 2 && !comando.equalsIgnoreCase("HELP")) {
+            return "Inserisci un comando poi un _ , infine inserisci i parametri";
         }
-        //controllo protocollo
-        if (comando.equalsIgnoreCase("HELP")) {
-            return "I comandi sono PERSONA_[nome personalita'] serve a cambiare personalita' dell'oracolo, DOMANDA_[testo domada] serve a fare una domanda all'oracolo, HELP serve a mostrare i comandi";
-        } else if (comando.equalsIgnoreCase("PERSONA")) {
-            if (!oracolo.setPersonalitaAttuale(messaggioDiviso[1])) {
-                return "Inserisci una personalita' esistente: Aisa, Buso, Tassi";
-            } else {
-                return "Personalita' cambiata correttamente";
-            }
-        } else if (comando.equalsIgnoreCase("DOMANDA")) {
-            if (messaggioDiviso[1].isBlank()) {
-                return "Inserisci una domanda dopo il comando";
-            }
-            return oracolo.rispondi();
-        } else {
-            return "Inserisci un comando corretto";
+        
+        //controllo comando
+        switch (comando) {
+            case "HELP":
+                return "I comandi sono PERSONA_[nome personalita'], DOMANDA_[testo domanda], FORTUNA_, HELP";
+
+            case "PERSONA":
+                if (!oracolo.setPersonalitaAttuale(messaggioDiviso[1])) {
+                    return "Inserisci una personalita' esistente: Aisa, Buso, Tassi";
+                } else {
+                    return "Personalita' cambiata correttamente";
+                }
+
+            case "DOMANDA":
+                if (messaggioDiviso[1].isBlank()) {
+                    return "Inserisci una domanda dopo il comando";
+                }
+                return oracolo.rispondi();
+
+            case "FORTUNA":
+                return oracolo.vediFortuna();
+
+            default:
+                return "Inserisci un comando corretto";
         }
     }
 

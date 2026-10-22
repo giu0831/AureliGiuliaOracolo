@@ -67,13 +67,13 @@ public class GestioneClienti implements Runnable {
         String[] messaggioDiviso = messaggio.split("_", 2);
         String comando = messaggioDiviso[0];
         //conrollo per vedere se è stato scritto bene un comando
-        if (messaggioDiviso.length < 2 && !comando.equals("HELP") && !comando.equals("FORTUNA") && !comando.equals("RESET")) {
+        if (messaggioDiviso.length < 2 && !comando.equals("HELP") && !comando.equals("FORTUNA") && !comando.equals("RESET") && !comando.equals("RICARICA")) {
             return "Inserisci un comando poi un _ , infine inserisci i parametri";
         }
         //controllo comando
         switch (comando) {
             case "HELP":
-                return "I comandi sono PERSONA_[nome personalita'], DOMANDA_[testo domanda], FORTUNA, RESET, HELP";
+                return "I comandi sono PERSONA_[nome personalita'], DOMANDA_[testo domanda], FORTUNA, RICARICA, RESET, HELP";
 
             case "PERSONA":
                 if (!oracolo.setPersonalitaAttuale(messaggioDiviso[1])) {
@@ -94,6 +94,9 @@ public class GestioneClienti implements Runnable {
             case "RESET":
                 oracolo.reset();
                 return "Nuova chat.";
+
+            case "RICARICA":
+                return oracolo.ricarica();
 
             default:
                 return "Inserisci un comando corretto";

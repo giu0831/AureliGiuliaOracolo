@@ -15,6 +15,7 @@ public class Oracolo {
     private HashMap<String, ArrayList<String>> risposteFortuna; //mappa con le risposte alla fortuna
     private String personalitaAttuale; //personalita'
     private boolean fortunaGiaChiesta; //variabile per vedere se e' già stata chiesta la fortuna
+    private int domandeFatte; //variabile per vedere quante domande sono state fatte, a 3 l'oracolo non rispondera' piu' finche' non viene ricaricato
 
     /**
      * Metodo costruttore
@@ -25,6 +26,7 @@ public class Oracolo {
         //inizializzazione variabili
         inizializzaRisposte();
         inizializzaRisposteFortuna();
+        domandeFatte = 0;
         if (!setPersonalitaAttuale(personalita)) {
         this.personalitaAttuale = "Aisa"; // Default di sicurezza
     }
@@ -40,18 +42,24 @@ public class Oracolo {
         risposteTassi.add("Ti consiglio una pausa caffe'");
         risposteTassi.add("Nel tuo futuro vedo un premio. Il premio come pdm");
         risposteTassi.add("Se devi progammare, non usare c#");
+        risposteTassi.add("Basta con le domande, ho bisogno di un caffe'");
+        risposteTassi.add("Una pausa caffe' era proprio quello che ci voleva");
         risposte.put("Tassi", risposteTassi);
 
         ArrayList<String> risposteBuso = new ArrayList<>();
         risposteBuso.add("La risposta e' sempre Eldego");
         risposteBuso.add("Non ti preoccupare, vai a comprare un trapano alla lidl");
         risposteBuso.add("67");
+        risposteBuso.add("Non ho più voglia di rispondere, dov'è eldego");
+        risposteBuso.add("ELDEGO, ora so carico");
         risposte.put("Buso", risposteBuso);
 
         ArrayList<String> risposteAisa = new ArrayList<>();
-        risposteAisa.add("La soluzione ai tuoi problemi e' un commentino su Parini.");
+        risposteAisa.add("La soluzione ai tuoi problemi e' il quadernone.");
         risposteAisa.add("C'è sempre tempo per risolvere tutto, basta chiedere l'ora a Tassi.");
         risposteAisa.add("Ma ti sembra un comportamento corretto?");
+        risposteAisa.add("Stai sprecando il mio tempo con queste domande.");
+        risposteAisa.add("Avevo proprio bisogno di un commentino su Parini");
         risposte.put("Aisa", risposteAisa);
     }
     
@@ -123,6 +131,8 @@ public class Oracolo {
     public String rispondi(){
         Random rnd = new Random();
         ArrayList<String> listaRisposte = risposte.get(personalitaAttuale);
+        if(domandeFatte == 3) return listaRisposte.get(3);
+        domandeFatte++;
         return listaRisposte.get(rnd.nextInt(3));
     }
     
@@ -140,10 +150,21 @@ public class Oracolo {
     }
     
     /**
+     * Metodo per ricaricare l'oracolo
+     * @return messaggio
+     */
+    public String ricarica(){
+        domandeFatte = 0;
+        ArrayList<String> listaRisposte = risposte.get(personalitaAttuale);
+        return listaRisposte.get(4);
+    }
+    
+    /**
      * Metodo per resettare l'oracolo
      */
     public void reset(){
         fortunaGiaChiesta = false;
+        domandeFatte = 0;
     }
 }
 

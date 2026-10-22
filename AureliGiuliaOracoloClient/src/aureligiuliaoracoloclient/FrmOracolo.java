@@ -42,7 +42,10 @@ public class FrmOracolo extends javax.swing.JFrame {
         this.tastiera = new Scanner(System.in);
 
         leggiMessaggio();
+        //mostra l'immagine dell'oracolo
         mostraImmagine("Aisa");
+        //Aggiorna la scritta del bottone
+        cambiaScrittaBottone();
     }
 
     /**
@@ -69,6 +72,7 @@ public class FrmOracolo extends javax.swing.JFrame {
         btnFortuna = new javax.swing.JButton();
         btnAzzeraChat = new javax.swing.JButton();
         btnNuovaChat = new javax.swing.JButton();
+        btnRicarica = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Oracolo");
@@ -126,6 +130,11 @@ public class FrmOracolo extends javax.swing.JFrame {
         btnNuovaChat.setBorderPainted(false);
         btnNuovaChat.addActionListener(this::btnNuovaChatActionPerformed);
 
+        btnRicarica.setBackground(new java.awt.Color(205, 229, 254));
+        btnRicarica.setText("Ricarica");
+        btnRicarica.setBorderPainted(false);
+        btnRicarica.addActionListener(this::btnRicaricaActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,7 +166,11 @@ public class FrmOracolo extends javax.swing.JFrame {
                             .addComponent(btnAzzeraChat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(lblImmagine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(btnRicarica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblImmagine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -188,7 +201,8 @@ public class FrmOracolo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAzzeraChat)
-                    .addComponent(btnNuovaChat))
+                    .addComponent(btnNuovaChat)
+                    .addComponent(btnRicarica))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -219,7 +233,10 @@ public class FrmOracolo extends javax.swing.JFrame {
         try {
             String personalita = cmbPersonalita.getSelectedItem().toString();
             String comando = "PERSONA_" + personalita;
+            //aggiorna l'immagine dell'oracolo
             mostraImmagine(personalita);
+            //aggiorna il bottone
+            cambiaScrittaBottone();
             // Invia il messaggio al server
             out.println(comando);
             leggiMessaggio();
@@ -267,6 +284,23 @@ public class FrmOracolo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnNuovaChatActionPerformed
 
+    private void btnRicaricaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRicaricaActionPerformed
+        try {
+            String comando = "RICARICA";
+            String personalita = cmbPersonalita.getSelectedItem().toString();
+            String messaggio = "";
+            if(personalita.equals("Tassi"))messaggio = "Facciamo una pausa caffe'";
+            else if(personalita.equals("Buso"))messaggio = "c'e' Eldego";
+            else if(personalita.equals("Aisa"))messaggio = "Ho fatto un commentino su Parini";
+            //aggiunge il messaggio alla chat
+            scriviMessaggio(messaggio);
+            // Invia il messaggio al server
+            out.println(comando);
+            leggiMessaggio();
+        } catch (IOException ioe) {
+        }
+    }//GEN-LAST:event_btnRicaricaActionPerformed
+
     /**
      * Metodo per leggere il messaggio inviato dal server
      */
@@ -300,6 +334,15 @@ public class FrmOracolo extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Impossibile caricare l'immagine");
         }
+    }
+    /**
+     * Metodo per cambiare la scritta del bottone ricarica
+     */
+    private void cambiaScrittaBottone(){
+        String personalita = cmbPersonalita.getSelectedItem().toString();
+            if(personalita.equals("Tassi"))btnRicarica.setText("Pausa caffe'");
+            else if(personalita.equals("Buso"))btnRicarica.setText("Eldego");
+            else if(personalita.equals("Aisa"))btnRicarica.setText("Commentino di Parini");
     }
     /**
      * @param args the command line arguments
@@ -338,6 +381,7 @@ public class FrmOracolo extends javax.swing.JFrame {
     private javax.swing.JButton btnFortuna;
     private javax.swing.JButton btnInvia;
     private javax.swing.JButton btnNuovaChat;
+    private javax.swing.JButton btnRicarica;
     private javax.swing.JComboBox<String> cmbPersonalita;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

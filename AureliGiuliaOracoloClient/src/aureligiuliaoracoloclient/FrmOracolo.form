@@ -77,7 +77,13 @@
                               <Component id="jScrollPane1" pref="378" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="lblImmagine" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Component id="btnRicarica" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="lblImmagine" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -117,6 +123,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAzzeraChat" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnNuovaChat" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRicarica" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="29" max="32767" attributes="0"/>
               </Group>
@@ -264,6 +271,18 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuovaChatActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnRicarica">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="fe" green="e5" red="cd" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Ricarica"/>
+            <Property name="borderPainted" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRicaricaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

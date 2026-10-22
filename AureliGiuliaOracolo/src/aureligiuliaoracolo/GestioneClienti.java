@@ -8,7 +8,7 @@ import java.io.*;
 import java.net.Socket;
 
 /**
- *
+ * Classe che gestisce le interazioni con il client
  * @author utente
  */
 public class GestioneClienti implements Runnable {
@@ -16,18 +16,25 @@ public class GestioneClienti implements Runnable {
     private Socket socket;
     private Oracolo oracolo;
 
+    /**
+     * Metodo costruttore
+     * @param socket Socket 
+     */
     public GestioneClienti(Socket socket) {
         this.socket = socket;
+        //personalita' default
         oracolo = new Oracolo("Aisa");
     }
 
     @Override
     public void run() {
-        try (
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
-
+        try {
+            //inizzializzazione variabili
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            //messaggio di inizio
             out.println("Sei connesso all'Oracolo. Personalita' iniziale: " + oracolo.getPersonalitaAttuale());
-
+            //variabile del messaggio del client
             String messaggioClient;
             // Legge i messaggi finché la connessione rimane aperta
             while ((messaggioClient = in.readLine()) != null) {
@@ -38,12 +45,12 @@ public class GestioneClienti implements Runnable {
         } catch (IOException e) {
             System.out.println("Client disconnesso.");
         }
+        //chiusura socket
         chiudiSocket();
     }
 
     /**
      * Metodo per vedere che protocollo e' stato inserito
-     *
      * @param messaggio messaggio del client
      * @return risposta
      */
@@ -53,14 +60,13 @@ public class GestioneClienti implements Runnable {
             return "Il Comando e' vuoto.";
         }
 
-        //divisione del messaggio in messaggio e parametro
+        //divisione del messaggio in comando e parametro
         String[] messaggioDiviso = messaggio.split("_", 2);
         String comando = messaggioDiviso[0];
-
+        //conrollo per vedere se è stato scritto bene un comando
         if (messaggioDiviso.length < 2 && !comando.equalsIgnoreCase("HELP")) {
             return "Inserisci un comando poi un _ , infine inserisci i parametri";
         }
-        
         //controllo comando
         switch (comando) {
             case "HELP":

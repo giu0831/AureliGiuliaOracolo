@@ -82,6 +82,7 @@ public class FrmOracolo extends javax.swing.JFrame {
         cmbPersonalita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aisa", "Tassi", "Buso", " " }));
         cmbPersonalita.addActionListener(this::cmbPersonalitaActionPerformed);
 
+        lblMessaggio.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblMessaggio.setLabelFor(lblMessaggio);
         lblMessaggio.setText("Inserisci un messaggio:");
 
@@ -100,6 +101,7 @@ public class FrmOracolo extends javax.swing.JFrame {
         btnComandi.setBorderPainted(false);
         btnComandi.addActionListener(this::btnComandiActionPerformed);
 
+        lblPersonalita.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblPersonalita.setText("Personalità:");
 
         lblImmagine.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -257,7 +259,6 @@ public class FrmOracolo extends javax.swing.JFrame {
 
     /**
      * Metodo per aggiungere un messaggio alla chat
-     *
      * @param messaggio
      */
     private void scriviMessaggio(String messaggio) {
@@ -271,15 +272,12 @@ public class FrmOracolo extends javax.swing.JFrame {
     private void mostraImmagine(String personalita) {
         try {
             String percorso = "/assets/" + personalita + ".png";
-            // Carica l'immagine originale da file
+            // Caricamento immagine
             ImageIcon iconaOriginale = new ImageIcon(getClass().getResource(percorso));
-
-            // Ridimensiona l'immagine per non sformare la finestra (es. 200x200 pixel)
+            // Ridimensionamento immagine
             Image imgScalata = iconaOriginale.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-
-            // Applica la nuova immagine scalata alla JLabel
+            // cambio immagine
             lblImmagine.setIcon(new ImageIcon(imgScalata));
-            
         } catch (Exception e) {
             System.err.println("Impossibile caricare l'immagine");
         }

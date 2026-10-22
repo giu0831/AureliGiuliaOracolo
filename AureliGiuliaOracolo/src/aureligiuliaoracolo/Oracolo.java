@@ -11,16 +11,18 @@ import java.util.*;
  * @author utente
  */
 public class Oracolo {
-    private HashMap<String, ArrayList<String>> risposte;
-    private HashMap<String, ArrayList<String>> risposteFortuna;
-    private String personalitaAttuale;
-    private boolean fortunaGiaChiesta;
+    private HashMap<String, ArrayList<String>> risposte; //mappa con le risposte alle domande
+    private HashMap<String, ArrayList<String>> risposteFortuna; //mappa con le risposte alla fortuna
+    private String personalitaAttuale; //personalita'
+    private boolean fortunaGiaChiesta; //variabile per vedere se e' già stata chiesta la fortuna
 
     /**
      * Metodo costruttore
      * @param personalita personalita dell'oracolo
      */
     public Oracolo(String personalita) {
+        
+        //inizializzazione variabili
         inizializzaRisposte();
         inizializzaRisposteFortuna();
         if (!setPersonalitaAttuale(personalita)) {

@@ -19,7 +19,7 @@ public class AureliGiuliaOracoloClient {
      */
     public static void main(String[] args) {
 
-        /* Create and display the form */
+        //creazione form
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 new FrmOracolo().setVisible(true);

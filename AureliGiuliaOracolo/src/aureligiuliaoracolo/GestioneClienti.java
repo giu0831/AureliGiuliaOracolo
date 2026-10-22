@@ -9,6 +9,7 @@ import java.net.Socket;
 
 /**
  * Classe che gestisce le interazioni con il client
+ *
  * @author utente
  */
 public class GestioneClienti implements Runnable {
@@ -18,7 +19,8 @@ public class GestioneClienti implements Runnable {
 
     /**
      * Metodo costruttore
-     * @param socket Socket 
+     *
+     * @param socket Socket
      */
     public GestioneClienti(Socket socket) {
         this.socket = socket;
@@ -30,7 +32,7 @@ public class GestioneClienti implements Runnable {
     public void run() {
         try {
             //inizzializzazione variabili
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             //messaggio di inizio
             out.println("Sei connesso all'Oracolo. Personalita' iniziale: " + oracolo.getPersonalitaAttuale());
@@ -51,6 +53,7 @@ public class GestioneClienti implements Runnable {
 
     /**
      * Metodo per vedere che protocollo e' stato inserito
+     *
      * @param messaggio messaggio del client
      * @return risposta
      */
@@ -64,13 +67,13 @@ public class GestioneClienti implements Runnable {
         String[] messaggioDiviso = messaggio.split("_", 2);
         String comando = messaggioDiviso[0];
         //conrollo per vedere se è stato scritto bene un comando
-        if (messaggioDiviso.length < 2 && !comando.equalsIgnoreCase("HELP")) {
+        if (messaggioDiviso.length < 2 && !comando.equals("HELP") && !comando.equals("FORTUNA") && !comando.equals("RESET")) {
             return "Inserisci un comando poi un _ , infine inserisci i parametri";
         }
         //controllo comando
         switch (comando) {
             case "HELP":
-                return "I comandi sono PERSONA_[nome personalita'], DOMANDA_[testo domanda], FORTUNA_, HELP";
+                return "I comandi sono PERSONA_[nome personalita'], DOMANDA_[testo domanda], FORTUNA, RESET, HELP";
 
             case "PERSONA":
                 if (!oracolo.setPersonalitaAttuale(messaggioDiviso[1])) {
@@ -87,6 +90,10 @@ public class GestioneClienti implements Runnable {
 
             case "FORTUNA":
                 return oracolo.vediFortuna();
+
+            case "RESET":
+                oracolo.reset();
+                return "Nuova chat.";
 
             default:
                 return "Inserisci un comando corretto";

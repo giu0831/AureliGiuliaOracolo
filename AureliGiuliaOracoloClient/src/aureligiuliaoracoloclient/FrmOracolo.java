@@ -69,6 +69,7 @@ public class FrmOracolo extends javax.swing.JFrame {
         lblChat = new javax.swing.JLabel();
         btnFortuna = new javax.swing.JButton();
         btnAzzeraChat = new javax.swing.JButton();
+        btnNuovaChat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Oracolo");
@@ -97,7 +98,7 @@ public class FrmOracolo extends javax.swing.JFrame {
         btnInvia.addActionListener(this::btnInviaActionPerformed);
 
         btnComandi.setBackground(new java.awt.Color(205, 229, 254));
-        btnComandi.setText("comandi");
+        btnComandi.setText("Comandi");
         btnComandi.setBorderPainted(false);
         btnComandi.addActionListener(this::btnComandiActionPerformed);
 
@@ -121,6 +122,11 @@ public class FrmOracolo extends javax.swing.JFrame {
         btnAzzeraChat.setBorderPainted(false);
         btnAzzeraChat.addActionListener(this::btnAzzeraChatActionPerformed);
 
+        btnNuovaChat.setBackground(new java.awt.Color(205, 229, 254));
+        btnNuovaChat.setText("Nuova chat");
+        btnNuovaChat.setBorderPainted(false);
+        btnNuovaChat.addActionListener(this::btnNuovaChatActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -131,17 +137,17 @@ public class FrmOracolo extends javax.swing.JFrame {
                 .addGap(385, 385, 385))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblMessaggio)
-                        .addComponent(cmbPersonalita, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnComandi)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                            .addComponent(btnFortuna))
-                        .addComponent(txtMessaggio)
-                        .addComponent(btnInvia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lblPersonalita))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblMessaggio)
+                    .addComponent(cmbPersonalita, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnComandi)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(btnFortuna))
+                    .addComponent(txtMessaggio)
+                    .addComponent(btnInvia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblPersonalita)
+                    .addComponent(btnNuovaChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -150,7 +156,7 @@ public class FrmOracolo extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnAzzeraChat, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(lblImmagine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17))))
@@ -181,7 +187,9 @@ public class FrmOracolo extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblImmagine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAzzeraChat)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAzzeraChat)
+                    .addComponent(btnNuovaChat))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -234,7 +242,7 @@ public class FrmOracolo extends javax.swing.JFrame {
 
     private void btnFortunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFortunaActionPerformed
         try {
-            String comando = "FORTUNA_" + txtMessaggio.getText();
+            String comando = "FORTUNA";
             //aggiunge il messaggio alla chat
             scriviMessaggio("client: Quanta fortuna ho oggi?");
             // Invia il messaggio al server
@@ -247,6 +255,18 @@ public class FrmOracolo extends javax.swing.JFrame {
     private void btnAzzeraChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAzzeraChatActionPerformed
         txaChat.setText("");
     }//GEN-LAST:event_btnAzzeraChatActionPerformed
+
+    private void btnNuovaChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuovaChatActionPerformed
+        try {
+            String comando = "RESET";
+            //rimuove il testo dalla chat
+            txaChat.setText("");
+            // Invia il messaggio al server
+            out.println(comando);
+            leggiMessaggio();
+        } catch (IOException ioe) {
+        }
+    }//GEN-LAST:event_btnNuovaChatActionPerformed
 
     /**
      * Metodo per leggere il messaggio inviato dal server
@@ -318,6 +338,7 @@ public class FrmOracolo extends javax.swing.JFrame {
     private javax.swing.JButton btnComandi;
     private javax.swing.JButton btnFortuna;
     private javax.swing.JButton btnInvia;
+    private javax.swing.JButton btnNuovaChat;
     private javax.swing.JComboBox<String> cmbPersonalita;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

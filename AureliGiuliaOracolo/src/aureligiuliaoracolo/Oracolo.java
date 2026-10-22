@@ -138,5 +138,12 @@ public class Oracolo {
         fortunaGiaChiesta = true;
         return listaRisposte.get(rnd.nextInt(3));
     }
+    
+    /**
+     * Metodo per resettare l'oracolo
+     */
+    public void reset(){
+        fortunaGiaChiesta = false;
+    }
 }
 

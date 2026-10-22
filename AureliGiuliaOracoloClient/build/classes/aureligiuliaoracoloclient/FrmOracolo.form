@@ -52,19 +52,18 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblMessaggio" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbPersonalita" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="btnComandi" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="11" max="32767" attributes="0"/>
-                              <Component id="btnFortuna" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txtMessaggio" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnInvia" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lblMessaggio" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbPersonalita" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="btnComandi" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="11" max="32767" attributes="0"/>
+                          <Component id="btnFortuna" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="txtMessaggio" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnInvia" alignment="0" max="32767" attributes="0"/>
                       <Component id="lblPersonalita" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNuovaChat" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -75,7 +74,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="btnAzzeraChat" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jScrollPane1" pref="380" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" pref="378" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="lblImmagine" min="-2" max="-2" attributes="0"/>
@@ -115,7 +114,10 @@
                       <Component id="lblImmagine" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnAzzeraChat" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnAzzeraChat" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNuovaChat" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace pref="29" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -194,7 +196,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fe" green="e5" red="cd" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="comandi"/>
+            <Property name="text" type="java.lang.String" value="Comandi"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -250,6 +252,18 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAzzeraChatActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnNuovaChat">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="fe" green="e5" red="cd" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nuova chat"/>
+            <Property name="borderPainted" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuovaChatActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

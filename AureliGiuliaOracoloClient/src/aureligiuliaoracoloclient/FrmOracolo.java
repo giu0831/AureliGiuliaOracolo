@@ -35,6 +35,8 @@ public class FrmOracolo extends javax.swing.JFrame {
      */
     public FrmOracolo() throws IOException {
         initComponents();
+        // Centra la finestra sullo schermo
+        this.setLocationRelativeTo(null);
         //inizializzazione variabili
         this.socket = new Socket(host, porta);
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

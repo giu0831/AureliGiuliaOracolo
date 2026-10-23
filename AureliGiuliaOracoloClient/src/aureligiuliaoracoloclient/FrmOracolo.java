@@ -82,7 +82,7 @@ public class FrmOracolo extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
-        lblOracolo.setFont(new java.awt.Font("Baskerville Old Face", 3, 24)); // NOI18N
+        lblOracolo.setFont(new java.awt.Font("Baskerville Old Face", 3, 36)); // NOI18N
         lblOracolo.setText("Oracolo");
 
         cmbPersonalita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aisa", "Tassi", "Buso" }));
@@ -161,8 +161,8 @@ public class FrmOracolo extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(287, 287, 287)
-                                .addComponent(lblOracolo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(279, 279, 279)
+                                .addComponent(lblOracolo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -207,7 +207,7 @@ public class FrmOracolo extends javax.swing.JFrame {
                     .addComponent(btnRicarica)
                     .addComponent(btnComandi)
                     .addComponent(btnFortuna))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

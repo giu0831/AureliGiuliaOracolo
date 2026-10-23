@@ -47,9 +47,9 @@ public class Oracolo {
         risposte.put("Tassi", risposteTassi);
 
         ArrayList<String> risposteBuso = new ArrayList<>();
-        risposteBuso.add("La risposta e' sempre Eldego");
-        risposteBuso.add("Non ti preoccupare, vai a comprare un trapano alla lidl");
-        risposteBuso.add("67");
+        risposteBuso.add("se la strada è incerta vai sempre a DESTRAAAAAA");
+        risposteBuso.add("C'E' L'AVITATORE N'OFFERTAAAAAAAA");
+        risposteBuso.add("SICCSSSS SEVENNNNNN");
         risposteBuso.add("Non ho più voglia di rispondere, dov'è eldego");
         risposteBuso.add("ELDEGO, ora so carico");
         risposte.put("Buso", risposteBuso);
@@ -71,9 +71,9 @@ public class Oracolo {
 
 
         ArrayList<String> fortunaBuso = new ArrayList<>();
-        fortunaBuso.add("Oggi fortuna pari a zero.");
-        fortunaBuso.add("Fortuna a meta': chiedine un po' a eldego");
-        fortunaBuso.add("Hai una fortuna altissima. Al livello 67!");
+        fortunaBuso.add("Oggi fortuna pari ai neri che zappano l'tabacco");
+        fortunaBuso.add("Fortuna a meta': devo gi a ramiccia la legna UNA SEGA UNA RAMICCIAAAAA");
+        fortunaBuso.add("Hai una fortuna altissima. QUANDO C'ERA LVIIII!!!!!!");
         fortunaBuso.add("Hai gia' la tuo risposta, per cambiarla chiedi a eldego.");
         risposteFortuna.put("Buso", fortunaBuso);
 
